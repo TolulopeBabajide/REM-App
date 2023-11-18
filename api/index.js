@@ -18,9 +18,11 @@ mongoose.connect(process.env.MONGO)
 const app = express(); 
 app.use(express.json()); 
 
-// Enable CORS for all routes
-app.use(cors());
-
+//Enable CORS for all routes
+app.use(cors({
+    origin: 'http://localhost:3001', // Allow requests from this origin
+    credentials: true, // Allow credentials (cookies) to be sent
+  }));
 
 app.listen(3000,()=>{
     console.log('server is running on port 3000!')
