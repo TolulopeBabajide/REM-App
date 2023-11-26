@@ -1,6 +1,10 @@
+// Import the Express library
 import express from 'express';
+
+// Import the authentication controller methods
 import { signin, signup, google } from '../controllers/auth.controller.js';
 
+// Create an instance of the Express router
 const router = express.Router();
 
 // Route for user signup
@@ -12,4 +16,5 @@ router.post("/signin", signin);
 // Route for Google authentication
 router.post("/google", google);
 
+// Export the router for use in other parts of the application
 export default router;
