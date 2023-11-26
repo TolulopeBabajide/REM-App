@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './routes/user.route.js';
 import authRouter  from './routes/auth.route.js';
-import cors from 'cors';
+// import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
 dotenv.config();
@@ -22,10 +22,10 @@ app.use(express.json());
 app.use(cookieParser());
 
 //Enable CORS for all routes
-app.use(cors({
-    origin: 'http://localhost:3001', // Allow requests from this origin
-    credentials: true, // Allow credentials (cookies) to be sent
-  }));
+// app.use(cors({
+//     origin: 'http://localhost:3001', // Allow requests from this origin
+//     credentials: true, // Allow credentials (cookies) to be sent
+//   }));
 
 app.listen(3000,()=>{
     console.log('server is running on port 3000!')
@@ -42,7 +42,7 @@ app.use('/api/auth', authRouter);
 // create middleware
 app.use((err, req, res, next)=>{
     const statusCode= err.statusCode||500;
-    const message= err.message|| "Internal Server Error";
+    const message= err.message || "Internal Server Error";
     return res.status(statusCode).json({
         success: false,
         statusCode, 
