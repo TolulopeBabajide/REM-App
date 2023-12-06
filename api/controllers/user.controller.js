@@ -51,7 +51,9 @@ export const deleteUser = async (req, res, next) => {
         // Delete the user from the database
         await User.findByIdAndDelete(req.params.id);
         // Respond with a success message
-        res.status(200).json("user has been deleted!");
+        res.clearCookie('jwToken');
+        res.status(200).json("user has been deleted!")
+        
     } catch (error) {
         // Forward any errors to the error handling middleware
         next(error);

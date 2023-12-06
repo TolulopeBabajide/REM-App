@@ -102,3 +102,15 @@ export const google = async (req, res, next) => {
         next(error);
     }
 }
+
+
+//Controller for user signout
+export const signout = async (req, res, next) =>{
+    try{
+        res.clearCookie('jwToken');
+        res.status(200).json('user has been logged out!');
+    } 
+    catch(error){
+        next(error)
+    }
+}

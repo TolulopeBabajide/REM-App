@@ -5,6 +5,7 @@ import dotenv from 'dotenv'; // Load environment variables from a .env file
 import userRouter from './routes/user.route.js'; // Router for user-related routes
 import authRouter  from './routes/auth.route.js'; // Router for authentication routes
 import cookieParser from 'cookie-parser'; // Parse cookie headers
+import cors from 'cors';
 
 // Load environment variables from a .env file
 dotenv.config();
@@ -29,10 +30,10 @@ app.use(cookieParser());
 
 // Uncomment the following lines to enable CORS (Cross-Origin Resource Sharing)
 // CORS is a security feature implemented by web browsers, which allows one domain to make AJAX requests to another domain
-// app.use(cors({
-//     origin: 'http://localhost:3001', // Allow requests from this origin
-//     credentials: true, // Allow credentials (cookies) to be sent
-// }));
+app.use(cors({
+    origin: 'http://localhost:3001', // Allow requests from this origin
+    credentials: true, // Allow credentials (cookies) to be sent
+}));
 
 // Start the Express server on port 3000
 app.listen(3000, () => {
