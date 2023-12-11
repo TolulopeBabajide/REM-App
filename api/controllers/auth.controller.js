@@ -114,3 +114,47 @@ export const signout = async (req, res, next) =>{
         next(error)
     }
 }
+
+//Controller for Admin Signin
+export const adminSignin = async (req, res, next) =>{
+
+    const {email, password} = req.body;
+    try {
+          // Find user by email in the database
+          const validAdmin = await User.findOne({ email });
+
+          // Return an error if admin not found
+          if (!validAdmin || validAdmin.role !== "admin" ) return next(errorHandler(404, "Not Authorised!"));
+  
+          // Validate the password using compareSync()
+          const validPassword = bcryptjs.compareSync(password, validAdmin.password);
+  
+          // Return an error if the password is invalid
+          if (!validPassword) return next(errorHandler(401, "Wrong credentials!"));
+  
+          // Sign a JWT token with the admin's id
+          const token = jwt.sign({ id: validAdmin._id }, process.env.JWT_SECRET);
+  
+          // Exclude the password from the response
+          const { password: pass, ...rest } = validAdmin._doc;
+  
+          // Set the token as an HttpOnly cookie and respond with the user information
+          res
+              .cookie('jwToken', token, { httpOnly: true })
+              .status(200)
+              .json(rest);
+    } catch (error) {
+        next(error)
+    }
+}
+
+//Controller for admin signout
+export const adminSignout = async (req, res, next) =>{
+    try{
+        res.clearCookie('jwToken');
+        res.status(200).json('admin has been logged out!');
+    } 
+    catch(error){
+        next(error)
+    }
+}

@@ -50,6 +50,9 @@ app.use('/api/auth', authRouter);
 // Route for handling listing
 app.use("/api/listing", listingRouter)
 
+
+
+
 // Error-handling middleware for handling errors in the application
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
