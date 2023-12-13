@@ -7,6 +7,7 @@ import authRouter  from './routes/auth.route.js'; // Router for authentication r
 import cookieParser from 'cookie-parser'; // Parse cookie headers
 import cors from 'cors';
 import listingRouter from './routes/listing.route.js';
+import adminRouter from './routes/admin.route.js'
 
 // Load environment variables from a .env file
 dotenv.config();
@@ -49,6 +50,9 @@ app.use('/api/auth', authRouter);
 
 // Route for handling listing
 app.use("/api/listing", listingRouter)
+
+//Route for handling admin operations
+app.use("/api/admin", adminRouter);
 
 
 
